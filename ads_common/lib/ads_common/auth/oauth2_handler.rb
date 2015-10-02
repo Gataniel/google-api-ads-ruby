@@ -82,7 +82,7 @@ module AdsCommon
         token = super(credentials)
         unless @client.nil?
           @client.issued_at = Time.parse(@client.issued_at) if @client.issued_at.is_a? String
-          token = refresh_token! if @client.expired?
+          token = refresh_token! if @client.expired? || @client.expires_in.nil?
         end
         return token
       end
